@@ -12,7 +12,7 @@ curl -k -X PUT -u $ELASTICUSER:$ELASTICPASS "$hostprotocol://$ELASTICHOST/custom
 -H "Content-Type: application/json" \
 -d @$PROJECTPATH/mapping/customer.json
 
-curl -X PUT -u $ELASTICUSER:$ELASTICPASS "$hostprotocol://$ELASTICHOST/_ingest/pipeline/customer_pipeline" \
+curl -k -X PUT -u $ELASTICUSER:$ELASTICPASS "$hostprotocol://$ELASTICHOST/_ingest/pipeline/customer_pipeline" \
 -H "Content-Type: application/json" \
 -d @$PROJECTPATH/pipeline/customer.json
 
