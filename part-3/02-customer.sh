@@ -22,7 +22,8 @@ logstashconf="${logstashconf//\#\#ELASTICHOST\#\#/"$ELASTICHOST"}"
 logstashconf="${logstashconf//\#\#ELASTICSSL\#\#/"$ELASTICSSL"}"
 logstashconf="${logstashconf//\#\#ELASTICUSER\#\#/"$ELASTICUSER"}"
 logstashconf="${logstashconf//\#\#ELASTICPASS\#\#/"$ELASTICPASS"}"
-/usr/share/logstash/bin/logstash -e "$logstashconf"
+logstashconf="${logstashconf//\#\#FINGERPRINT\#\#/"$FINGERPRINT"}"
+$LOGSTASHPATH/bin/logstash -e "$logstashconf"
 
 curl -X PUT -u $ELASTICUSER:$ELASTICPASS "$hostprotocol://$ELASTICHOST/_enrich/policy/customer_policy" \
 -H "Content-Type: application/json" \

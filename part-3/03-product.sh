@@ -7,22 +7,14 @@ if [ "$ELASTICSSL" = "true" ]; then
   hostprotocol="https"
 fi
 
-
-
-
-
-
-
-
-
-
 logstashconf=`cat ${PROJECTPATH}/logstash/product.conf`
 logstashconf="${logstashconf//\#\#PROJECTPATH\#\#/"$PROJECTPATH"}"
 logstashconf="${logstashconf//\#\#ELASTICHOST\#\#/"$ELASTICHOST"}"
 logstashconf="${logstashconf//\#\#ELASTICSSL\#\#/"$ELASTICSSL"}"
 logstashconf="${logstashconf//\#\#ELASTICUSER\#\#/"$ELASTICUSER"}"
 logstashconf="${logstashconf//\#\#ELASTICPASS\#\#/"$ELASTICPASS"}"
-/usr/share/logstash/bin/logstash -e "$logstashconf"
+logstashconf="${logstashconf//\#\#FINGERPRINT\#\#/"$FINGERPRINT"}"
+$LOGSTASHPATH/bin/logstash -e "$logstashconf"
 
 curl -X PUT -u $ELASTICUSER:$ELASTICPASS "$hostprotocol://$ELASTICHOST/_enrich/policy/product_policy" \
 -H "Content-Type: application/json" \

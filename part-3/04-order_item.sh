@@ -7,11 +7,6 @@ if [ "$ELASTICSSL" = "true" ]; then
   hostprotocol="https"
 fi
 
-
-
-
-
-
 curl -X PUT -u $ELASTICUSER:$ELASTICPASS "$hostprotocol://$ELASTICHOST/_ingest/pipeline/order_item_pipeline" \
 -H "Content-Type: application/json" \
 -d @$PROJECTPATH/pipeline/order_item.json
@@ -22,7 +17,8 @@ logstashconf="${logstashconf//\#\#ELASTICHOST\#\#/"$ELASTICHOST"}"
 logstashconf="${logstashconf//\#\#ELASTICSSL\#\#/"$ELASTICSSL"}"
 logstashconf="${logstashconf//\#\#ELASTICUSER\#\#/"$ELASTICUSER"}"
 logstashconf="${logstashconf//\#\#ELASTICPASS\#\#/"$ELASTICPASS"}"
-/usr/share/logstash/bin/logstash -e "$logstashconf"
+logstashconf="${logstashconf//\#\#FINGERPRINT\#\#/"$FINGERPRINT"}"
+$LOGSTASHPATH/bin/logstash -e "$logstashconf"
 
 curl -X PUT -u $ELASTICUSER:$ELASTICPASS "$hostprotocol://$ELASTICHOST/_enrich/policy/order_item_policy" \
 -H "Content-Type: application/json" \
