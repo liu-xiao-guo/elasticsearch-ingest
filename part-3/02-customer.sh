@@ -16,6 +16,8 @@ curl -k -X PUT -u $ELASTICUSER:$ELASTICPASS "$hostprotocol://$ELASTICHOST/_inges
 -H "Content-Type: application/json" \
 -d @$PROJECTPATH/pipeline/customer.json
 
+sleep 5
+
 logstashconf=`cat ${PROJECTPATH}/logstash/customer.conf`
 logstashconf="${logstashconf//\#\#PROJECTPATH\#\#/"$PROJECTPATH"}"
 logstashconf="${logstashconf//\#\#ELASTICHOST\#\#/"$ELASTICHOST"}"

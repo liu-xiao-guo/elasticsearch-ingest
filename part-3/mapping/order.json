@@ -6,10 +6,16 @@
           "properties": {
             "point": {
              "type": "geo_point"
-	    }
+           }
           }
         }
       }
+    },
+    "customer_id": {
+      "type": "long"  
+    },
+    "order_id": {
+      "type": "long"
     }
   }
 }

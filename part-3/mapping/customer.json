@@ -4,7 +4,10 @@
       "properties": {
         "point": {
           "type": "geo_point"
-	}
+	      },
+        "zip": {
+          "type": "long"
+        }
       }
     }
   }

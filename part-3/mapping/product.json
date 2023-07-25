@@ -1,0 +1,11 @@
+{
+    "properties": {
+      "geo": {
+        "properties": {
+          "product_id": {
+            "type": "long"
+            }
+        }
+      }
+    }
+  }
