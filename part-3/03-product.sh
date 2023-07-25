@@ -16,11 +16,11 @@ logstashconf="${logstashconf//\#\#ELASTICPASS\#\#/"$ELASTICPASS"}"
 logstashconf="${logstashconf//\#\#FINGERPRINT\#\#/"$FINGERPRINT"}"
 $LOGSTASHPATH/bin/logstash -e "$logstashconf"
 
-curl -X PUT -u $ELASTICUSER:$ELASTICPASS "$hostprotocol://$ELASTICHOST/_enrich/policy/product_policy" \
+curl -k -X PUT -u $ELASTICUSER:$ELASTICPASS "$hostprotocol://$ELASTICHOST/_enrich/policy/product_policy" \
 -H "Content-Type: application/json" \
 -d @$PROJECTPATH/policy/product.json
 
 sleep 60
-curl -X PUT -u $ELASTICUSER:$ELASTICPASS "$hostprotocol://$ELASTICHOST/_enrich/policy/product_policy/_execute"
+curl -k -X PUT -u $ELASTICUSER:$ELASTICPASS "$hostprotocol://$ELASTICHOST/_enrich/policy/product_policy/_execute"
 
 

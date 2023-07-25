@@ -21,7 +21,6 @@ logstashconf="${logstashconf//\#\#ELASTICUSER\#\#/"$ELASTICUSER"}"
 logstashconf="${logstashconf//\#\#ELASTICPASS\#\#/"$ELASTICPASS"}"
 logstashconf="${logstashconf//\#\#FINGERPRINT\#\#/"$FINGERPRINT"}"
 $LOGSTASHPATH/bin/logstash -e "$logstashconf"
-echo $logstashconf
 
 curl -k -X PUT -u $ELASTICUSER:$ELASTICPASS "$hostprotocol://$ELASTICHOST/_enrich/policy/zip_geo_policy" \
 -H "Content-Type: application/json" \

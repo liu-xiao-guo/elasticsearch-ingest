@@ -7,8 +7,8 @@ if [ "$ELASTICSSL" = "true" ]; then
   hostprotocol="https"
 fi
 
-curl -X PUT -u $ELASTICUSER:$ELASTICPASS "$hostprotocol://$ELASTICHOST/customer"
-curl -X PUT -u $ELASTICUSER:$ELASTICPASS "$hostprotocol://$ELASTICHOST/customer/_mapping" \
+curl -k -X PUT -u $ELASTICUSER:$ELASTICPASS "$hostprotocol://$ELASTICHOST/customer"
+curl -k -X PUT -u $ELASTICUSER:$ELASTICPASS "$hostprotocol://$ELASTICHOST/customer/_mapping" \
 -H "Content-Type: application/json" \
 -d @$PROJECTPATH/mapping/customer.json
 
@@ -25,11 +25,11 @@ logstashconf="${logstashconf//\#\#ELASTICPASS\#\#/"$ELASTICPASS"}"
 logstashconf="${logstashconf//\#\#FINGERPRINT\#\#/"$FINGERPRINT"}"
 $LOGSTASHPATH/bin/logstash -e "$logstashconf"
 
-curl -X PUT -u $ELASTICUSER:$ELASTICPASS "$hostprotocol://$ELASTICHOST/_enrich/policy/customer_policy" \
+curl -k -X PUT -u $ELASTICUSER:$ELASTICPASS "$hostprotocol://$ELASTICHOST/_enrich/policy/customer_policy" \
 -H "Content-Type: application/json" \
 -d @$PROJECTPATH/policy/customer.json
 
 sleep 30
-curl -X PUT -u $ELASTICUSER:$ELASTICPASS "$hostprotocol://$ELASTICHOST/_enrich/policy/customer_policy/_execute"
+curl -k -X PUT -u $ELASTICUSER:$ELASTICPASS "$hostprotocol://$ELASTICHOST/_enrich/policy/customer_policy/_execute"
 
 

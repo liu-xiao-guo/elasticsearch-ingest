@@ -7,12 +7,12 @@ if [ "$ELASTICSSL" = "true" ]; then
   hostprotocol="https"
 fi
 
-curl -X PUT -u $ELASTICUSER:$ELASTICPASS "$hostprotocol://$ELASTICHOST/order"
-curl -X PUT -u $ELASTICUSER:$ELASTICPASS "$hostprotocol://$ELASTICHOST/order/_mapping" \
+curl -k -X PUT -u $ELASTICUSER:$ELASTICPASS "$hostprotocol://$ELASTICHOST/order"
+curl -k -X PUT -u $ELASTICUSER:$ELASTICPASS "$hostprotocol://$ELASTICHOST/order/_mapping" \
 -H "Content-Type: application/json" \
 -d @$PROJECTPATH/mapping/order.json
 
-curl -X PUT -u $ELASTICUSER:$ELASTICPASS "$hostprotocol://$ELASTICHOST/_ingest/pipeline/order_pipeline" \
+curl -k -X PUT -u $ELASTICUSER:$ELASTICPASS "$hostprotocol://$ELASTICHOST/_ingest/pipeline/order_pipeline" \
 -H "Content-Type: application/json" \
 -d @$PROJECTPATH/pipeline/order.json
 
